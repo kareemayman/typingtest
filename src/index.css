@@ -7,11 +7,11 @@
 
 /* Variables -------------------------------------------------------- */
 :root {
-  --neutral-900: hsl(0, 0, 7%);
-  --neutral-800: hsl(0, 0, 15%);
+  --neutral-900: rgb(18, 18, 18);
+  --neutral-800: rgb(38, 38, 38);
   --neutral-500: hsl(240, 3%, 46%);
   --neutral-400: hsl(240, 1%, 59%);
-  --neutral-0: hsl(0, 0, 100%);
+  --neutral-0: rgb(255, 255, 255);
   --blue-600: hsl(214, 100%, 55%);
   --blue-400: hsl(210, 100%, 65%);
   --red-500: hsl(354, 63%, 57%);
@@ -32,7 +32,8 @@ body {
   font-family: "Sora", sans-serif;
   font-size: var(--fontSize-label);
   font-weight: var(--font-light);
-  color: var(--neutral-900);
+  color: var(--neutral-0);
+  background-color: var(--neutral-900);
 }
 
 *, *::before, *::after {
@@ -50,9 +51,9 @@ a {
   padding-inline: 15px;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
   .container {
-    width: 1170px;
+    width: 750px;
   }
 }
 
@@ -62,8 +63,8 @@ a {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .container {
-    width: 750px;
+    width: 1170px;
   }
 }
