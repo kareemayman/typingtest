@@ -1,0 +1,50 @@
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 30px 15px;
+  border-bottom: 1px solid var(--neutral-800);
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.divider {
+  align-self: stretch;
+  width: 1px;
+  background-color: var(--neutral-800);
+}
+
+.stats p {
+  color: var(--neutral-500);
+  font-size: 1.1rem;
+  font-weight: var(--font-medium);
+
+  span {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: var(--font-bold);
+    margin-left: 15px;
+  }
+}
+
+.controls p {
+  color: var(--neutral-500);
+  font-weight: var(--font-light);
+}
+
+.difficulty,
+.mode {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

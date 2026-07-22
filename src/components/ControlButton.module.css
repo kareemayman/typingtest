@@ -1,0 +1,21 @@
+.controlButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--neutral-500);
+  cursor: pointer;
+  color: white;
+  font-size: 0.8rem;
+  transition: 0.3s;
+
+  &:hover {
+    translate: 0 -2px;
+  }
+
+  &:active {
+    scale: 0.9;
+  }
+}
