@@ -18,4 +18,9 @@
   &:active {
     scale: 0.9;
   }
+
+  &.active {
+    color: var(--blue-400);
+    border-color: var(--blue-400);
+  }
 }

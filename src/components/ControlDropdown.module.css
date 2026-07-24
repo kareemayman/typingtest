@@ -19,8 +19,17 @@
     position: absolute;
     background-color: var(--neutral-800);
     width: 100%;
-    top: calc(100% + 10px);
+    top: -100%;
     border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+
+    &.open {
+      opacity: 1;
+      pointer-events: auto;
+      top: calc(100% + 10px);
+    }
   }
 
   .option {
