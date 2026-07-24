@@ -1,0 +1,36 @@
+.controlDropdown {
+  position: relative;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--neutral-400);
+  padding: 5px 10px;
+
+  p {
+    color: white !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .options {
+    position: absolute;
+    background-color: var(--neutral-800);
+    width: 100%;
+    top: calc(100% + 10px);
+    border-radius: 8px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--neutral-500);
+    }
+  }
+}

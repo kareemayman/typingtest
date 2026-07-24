@@ -1,4 +1,5 @@
 import ControlButton from "../ControlButton"
+import ControlDropdown from "../ControlDropdown"
 import Styles from "./StatusBar.module.css"
 
 export default function StatusBar() {
@@ -23,7 +24,7 @@ export default function StatusBar() {
       </div>
 
       <div className={Styles.controls}>
-        <div className={Styles.difficulty}>
+        <div className={`${Styles.difficulty} ${Styles.desktop}`}>
           <p>Difficulty: </p>
           <div className={Styles.controlGroup}>
             <ControlButton text={"Easy"}/>
@@ -32,14 +33,22 @@ export default function StatusBar() {
           </div>
         </div>
 
-        <div className={Styles.divider}></div>
+        <div className={Styles.mobile}>
+          <ControlDropdown options={["Easy", "Medium", "Hard"]} variable={"difficulty"} />
+        </div>
 
-        <div className={Styles.mode}>
+        <div className={`${Styles.divider} ${Styles.desktop}`}></div>
+
+        <div className={`${Styles.mode} ${Styles.desktop}`}>
           <p>Mode: </p>
           <div className={Styles.controlGroup}>
             <ControlButton text={"Timed (60s)"}/>
             <ControlButton text={"Passage"}/>
           </div>
+        </div>
+
+        <div className={Styles.mobile} className={Styles.mobile}>
+          <ControlDropdown options={["Timed (60s)", "Passage"]} variable={"mode"} />
         </div>
       </div>
     </div>
