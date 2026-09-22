@@ -2,19 +2,12 @@ import { useState } from "react"
 import ControlButton from "../ControlButton"
 import ControlDropdown from "../ControlDropdown"
 import Styles from "./StatusBar.module.css"
+import { useTyping } from "../../state/typingContext"
 
 export default function StatusBar() {
-  const [wpm, setWpm] = useState(0)
+  const { difficulty, setDifficulty, mode, setMode, wpm } = useTyping()
   const [accuracy, setAccuracy] = useState(100)
   const [time, setTime] = useState(60)
-  const [difficulty, setDifficulty] = useState(() => {
-    const diff = localStorage.getItem("typingTestDifficulty")
-    return diff ? diff : "Easy"
-  })
-  const [mode, setMode] = useState(() => {
-    const m = localStorage.getItem("typingTestMode")
-    return m ? m : "Timed (60s)"
-  })
 
   const changeDifficulty = (diff) => {
     setDifficulty(diff)
@@ -22,8 +15,13 @@ export default function StatusBar() {
   }
 
   const changeMode = (m) => {
-    setMode(m)
-    localStorage.setItem("typingTestMode", m)
+    if (m === "Timed (60s)") {
+      setMode("Timed")
+      localStorage.setItem("typingTestMode", "Timed")
+    } else {
+      setMode(m)
+      localStorage.setItem("typingTestMode", m)
+    }
   }
 
   return (
@@ -84,7 +82,7 @@ export default function StatusBar() {
           <div className={Styles.controlGroup}>
             <ControlButton
               text={"Timed (60s)"}
-              active={mode === "Timed (60s)"}
+              active={mode === "Timed"}
               onButtonClick={changeMode}
             />
             <ControlButton

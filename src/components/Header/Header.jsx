@@ -2,13 +2,10 @@ import Styles from "./Header.module.css"
 import LogoLarge from "/assets/images/logo-large.svg"
 import LogoSmall from "/assets/images/logo-small.svg"
 import TrophyIcon from "/assets/images/icon-personal-best.svg"
-import { useState } from "react"
+import { useTyping } from "../../state/typingContext"
 
 export default function Header() {
-  const [personalBest] = useState(() => {
-    const best = localStorage.getItem("typingTestPersonalBest")
-    return best ? JSON.parse(best) : 0
-  })
+  const { wpm: personalBest } = useTyping()
 
   return (
     <div className={Styles.header}>
@@ -23,5 +20,5 @@ export default function Header() {
         </p>
       </div>
     </div>
-  );
+  )
 }
