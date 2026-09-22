@@ -6,8 +6,8 @@ import { useTyping } from "../../state/typingContext"
 
 export default function StatusBar() {
   const { difficulty, setDifficulty, mode, setMode, wpm } = useTyping()
-  const [accuracy, setAccuracy] = useState(100)
-  const [time, setTime] = useState(60)
+  const [accuracy] = useState(100)
+  const [time] = useState(60)
 
   const changeDifficulty = (diff) => {
     setDifficulty(diff)
