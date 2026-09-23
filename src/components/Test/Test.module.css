@@ -10,6 +10,10 @@
   margin-bottom: 30px;
   position: relative;
 
+  .passage {
+    outline: none;
+  }
+
   .passage.blurry {
     filter: blur(8px);
     user-select: none;
@@ -65,15 +69,28 @@
   }
 }
 
-.caret {
-  background-color: var(--neutral-800);
+.caret, .correct, .mistake, .normal {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 1ch;
+}
+
+.caret {
+  background-color: var(--neutral-800);
+  width: fit-content;
+  min-width: 0.5ch;
   border-radius: 5px;
   height: 1.8ch;
-  animation: caret 0.7s ease-in infinite alternate;
+  animation: caret 0.5s ease-in infinite alternate;
+}
+
+.correct {
+  color: var(--green-500);
+}
+
+.mistake {
+  color: var(--red-500);
+  text-decoration: underline;
 }
 
 @keyframes caret {
