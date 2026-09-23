@@ -64,3 +64,22 @@
     text-shadow: 0px 0px 5px var(--neutral-900);
   }
 }
+
+.caret {
+  background-color: var(--neutral-800);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1ch;
+  border-radius: 5px;
+  height: 1.8ch;
+  animation: caret 0.7s ease-in infinite alternate;
+}
+
+@keyframes caret {
+  from {
+    background-color: var(--neutral-800)
+  } to {
+    background-color: rgba(38, 38, 38, 0.164);
+  }
+}
