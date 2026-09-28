@@ -8,16 +8,17 @@ export default function Header() {
   const { wpm: personalBest } = useTyping()
 
   return (
-    <div className={Styles.header}>
-      <img src={LogoLarge} alt="logo" className={Styles.desktop} />
-      <img src={LogoSmall} alt="logo" className={Styles.mobile} />
-
-      <div className={Styles.personalBest}>
-        <img src={TrophyIcon} alt="Trophy Icon" />
-        <p>
-          <span className={Styles.desktop}>Personal</span> best:{" "}
-          <span className={Styles.wpm}>{personalBest} WPM</span>
-        </p>
+    <div className="container">
+      <div className={Styles.header}>
+        <img src={LogoLarge} alt="logo" className={Styles.desktop} />
+        <img src={LogoSmall} alt="logo" className={Styles.mobile} />
+        <div className={Styles.personalBest}>
+          <img src={TrophyIcon} alt="Trophy Icon" />
+          <p>
+            <span className={Styles.desktop}>Personal</span> best:{" "}
+            <span className={Styles.wpm}>{personalBest} WPM</span>
+          </p>
+        </div>
       </div>
     </div>
   )
