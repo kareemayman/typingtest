@@ -1,3 +1,8 @@
+.testContainer {
+  outline: none;
+  border: none;
+}
+
 .test {
   margin-top: 30px;
   color: var(--neutral-400);
@@ -9,10 +14,6 @@
   border-bottom: 1px solid var(--neutral-800);
   margin-bottom: 30px;
   position: relative;
-
-  .passage {
-    outline: none;
-  }
 
   .passage.blurry {
     filter: blur(8px);

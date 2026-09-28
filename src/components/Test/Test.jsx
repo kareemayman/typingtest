@@ -13,60 +13,61 @@ function getRandomPassage(difficulty) {
 }
 
 export default function Test() {
-  const { difficulty } = useTyping()
+  const { difficulty, mode } = useTyping()
+  const [run, setRun] = useState(0)
+
+  return (
+    <TypingTest
+      difficulty={difficulty}
+      mode={mode}
+      restartTest={() => setRun((prev) => prev + 1)}
+      key={`${difficulty}-${mode}-${run}`}
+    />
+  )
+}
+
+function TypingTest({ difficulty, mode, restartTest }) {
+  const [passage] = useState(() => getRandomPassage(difficulty))
+  const [typed, setTyped] = useState("")
   const [testStarted, setTestStarted] = useState(false)
-  const [testCompleted, setTestCompleted] = useState(false)
-  const [passage, setPassage] = useState(() => getRandomPassage(difficulty))
-  const [caret, setCaret] = useState(0)
-  const [prevDifficulty, setPrevDifficulty] = useState(difficulty)
+  const [time, setTime] = useState(mode === "Timed" ? 60 : 0)
   const passageRef = useRef(null)
-  const [correct, setCorrect] = useState(new Set())
 
-  const restartTest = () => {
-    setPrevDifficulty(difficulty)
-    setPassage(getRandomPassage(difficulty))
-    setCaret(0) // reset progress since the passage changed underneath the user
-    setCorrect(new Set())
-    setTestStarted(false) // reset test started state since the passage changed
-    setTestCompleted(false) // reset test completed state since the passage changed
-  }
-
-  if (difficulty !== prevDifficulty) {
-    restartTest()
-  }
+  const caret = typed.length
+  const correctCount = [...typed].filter((ch, i) => ch === passage[i]).length
+  const accuracy = caret === 0 ? 100 : Math.round((correctCount / caret) * 100)
+  const finished = caret >= passage.length || (mode === "Timed" && time <= 0)
 
   useEffect(() => {
-    if (testStarted) passageRef.current.focus()
+    if (testStarted) passageRef.current?.focus()
   }, [testStarted])
 
-  const moveCaret = (e) => {
-    e.stopPropagation()
-    if (e.key.length !== 1) return
+  useEffect(() => {
+    if (!testStarted || finished) return
+    const id = setInterval(() => {
+      setTime((t) => (mode === "Timed" ? t - 1 : t + 1))
+    }, 1000)
+    return () => clearInterval(id)
+  }, [testStarted, finished, mode])
 
-    if (e.key === passage[caret]) {
-      setCorrect((prev) => new Set(prev).add(caret))
-    }
-    setCaret((val) => val + 1)
-    if (caret >= passage.length - 1) {
-      setTestCompleted(true)
-    }
+  const handleKeyDown = (e) => {
+    e.stopPropagation()
+    if (e.key.length !== 1 || finished) return
+    setTyped((prev) => prev + e.key)
   }
 
-  return !testCompleted ? (
-    <div className="container">
-      <StatusBar />
+  if (finished) return <TestCompleted mode={"normal"} restartTest={restartTest} />
+
+  return (
+    <div className={`container ${Styles.testContainer}`} onKeyDown={handleKeyDown} tabIndex={-1} ref={passageRef}>
+      <StatusBar accuracy={accuracy} time={time} />
       <div
         className={Styles.test}
         style={{ borderBottom: !testStarted ? "none" : "1px solid var(--neutral-800)" }}
       >
-        <div
-          className={`${Styles.passage} ${!testStarted ? Styles.blurry : ""}`}
-          onKeyDown={moveCaret}
-          tabIndex={-1}
-          ref={passageRef}
-        >
+        <div className={`${Styles.passage} ${!testStarted ? Styles.blurry : ""}`}>
           {[...passage].map((c, i) => {
-            const letterClass = i === caret ? "caret" : correct.has(i) ? "correct" : "mistake"
+            const letterClass = i === caret ? "caret" : typed[i] === c ? "correct" : "mistake"
             return (
               <div className={i > caret ? Styles.normal : Styles[letterClass]} key={i}>
                 {c === " " ? "\u00A0" : c}
@@ -83,7 +84,5 @@ export default function Test() {
         )}
       </div>
     </div>
-  ) : (
-    <TestCompleted mode={"high score"} restartTest={restartTest} />
   )
 }

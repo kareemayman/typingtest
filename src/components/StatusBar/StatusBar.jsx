@@ -1,13 +1,10 @@
-import { useState } from "react"
 import ControlButton from "../ControlButton"
 import ControlDropdown from "../ControlDropdown"
 import Styles from "./StatusBar.module.css"
 import { useTyping } from "../../state/typingContext"
 
-export default function StatusBar() {
+export default function StatusBar({ accuracy, time }) {
   const { difficulty, setDifficulty, mode, setMode, wpm } = useTyping()
-  const [accuracy] = useState(100)
-  const [time] = useState(60)
 
   const changeDifficulty = (diff) => {
     setDifficulty(diff)
