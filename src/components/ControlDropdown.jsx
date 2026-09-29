@@ -31,7 +31,7 @@ export default function ControlDropdown({ options = [], variable, defaultValue, 
                 setIsOpen(false)
               }}
             >
-              <input type="radio" name={variable} id={o} className={Styles.optionInput} checked={defaultValue === o} />
+              <input type="radio" name={variable} id={o} className={Styles.optionInput} defaultChecked={defaultValue === o} />
               <p>{o}</p>
             </label>
           )

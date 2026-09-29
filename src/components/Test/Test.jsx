@@ -4,6 +4,7 @@ import passages from "../../../data.json"
 import { useEffect, useRef, useState } from "react"
 import StatusBar from "../StatusBar/StatusBar"
 import TestCompleted from "../TestCompleted/TestCompleted"
+import IconRestart from "../../../assets/images/icon-restart.svg"
 
 function getRandomPassage(difficulty) {
   const difficultyPassages = passages[difficulty.toLowerCase()] || passages.easy
@@ -59,7 +60,12 @@ function TypingTest({ difficulty, mode, restartTest }) {
   if (finished) return <TestCompleted mode={"normal"} restartTest={restartTest} />
 
   return (
-    <div className={`container ${Styles.testContainer}`} onKeyDown={handleKeyDown} tabIndex={-1} ref={passageRef}>
+    <div
+      className={`container ${Styles.testContainer}`}
+      onKeyDown={handleKeyDown}
+      tabIndex={-1}
+      ref={passageRef}
+    >
       <StatusBar accuracy={accuracy} time={time} />
       <div
         className={Styles.test}
@@ -83,6 +89,13 @@ function TypingTest({ difficulty, mode, restartTest }) {
           </div>
         )}
       </div>
+
+      {testStarted && (
+        <button className={Styles.restartButton} onClick={restartTest}>
+          Restart Test
+          <img src={IconRestart} alt="restart icon" className={Styles.restartIcon} />
+        </button>
+      )}
     </div>
   )
 }
