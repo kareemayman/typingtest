@@ -13,6 +13,16 @@ function getRandomPassage(difficulty) {
   return difficultyPassages[randomIndex].text
 }
 
+function splitIntoWords(passage) {
+  const words = []
+  let offset = 0
+  for (const word of passage.match(/\S+\s*/g) || []) {
+    words.push({ word, offset })
+    offset += word.length
+  }
+  return words
+}
+
 export default function Test() {
   const { difficulty, mode } = useTyping()
   const [run, setRun] = useState(0)
@@ -38,6 +48,7 @@ function TypingTest({ difficulty, mode, restartTest }) {
   const correctCount = [...typed].filter((ch, i) => ch === passage[i]).length
   const accuracy = caret === 0 ? 100 : Math.round((correctCount / caret) * 100)
   const finished = caret >= passage.length || (mode === "Timed" && time <= 0)
+  const words = splitIntoWords(passage)
 
   useEffect(() => {
     if (testStarted) passageRef.current?.focus()
@@ -72,14 +83,20 @@ function TypingTest({ difficulty, mode, restartTest }) {
         style={{ borderBottom: !testStarted ? "none" : "1px solid var(--neutral-800)" }}
       >
         <div className={`${Styles.passage} ${!testStarted ? Styles.blurry : ""}`}>
-          {[...passage].map((c, i) => {
-            const letterClass = i === caret ? "caret" : typed[i] === c ? "correct" : "mistake"
-            return (
-              <div className={i > caret ? Styles.normal : Styles[letterClass]} key={i}>
-                {c === " " ? "\u00A0" : c}
-              </div>
-            )
-          })}
+          {words.map(({ word, offset }, i) => (
+            <div className={Styles.word} key={`word-${i}`}>
+              {[...word].map((c, j) => {
+                const index = offset + j
+                const letterClass =
+                  index === caret ? "caret" : typed[index] === c ? "correct" : "mistake"
+                return (
+                  <div className={index > caret ? Styles.normal : Styles[letterClass]} key={j}>
+                    {c === " " ? "\u00A0" : c}
+                  </div>
+                )
+              })}
+            </div>
+          ))}
         </div>
 
         {!testStarted && (
